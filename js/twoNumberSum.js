@@ -7,6 +7,7 @@
 // Sample output: [-1, 11]
 
 // O(n^2) time | O(1) space
+// 2 loops | values are not stored.
 function twoNumberSum(array, targetSum) {
     // take every number in the array (except the last one)
     for (let i = 0; i < array.length - 1; i++) {
@@ -23,15 +24,22 @@ function twoNumberSum(array, targetSum) {
     return [];
 }
 
-
+// O(n) time | O(n) space
+// 1 loop | values are stored in nums{}
 function twoNumberSum(array, targetSum) {
+    // keep a track on values that we see
     let nums = {};
+    // loop through every num
     for (let num of array) {
+        // check if the difference between a current num and targetSum is already in nums
         if (targetSum - num in nums) {
+            // it is, bingo, we've got our pair. sort it.
             return [targetSum - num, num].sort((a, b) => a - b);
         } else {
+            // the num is new, add it to the hashmap
             nums[num] = true;
         }
     }
+    // we didn't find anything.
     return [];
 }
