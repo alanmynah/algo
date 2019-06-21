@@ -16,6 +16,8 @@ function twoNumberSum(array, targetSum) {
             // if the two selected numbers give the needed sum
             if (array[i] + array[j] === targetSum) {
                 // return the two numbers in a sorted array
+                // you have to provide compareFn to sort, because JS sort casts values to string
+                // so [3,4,30] becomes [3,30,4]
                 return [array[i], array[j]].sort((a, b) => a - b);
             }
         }
@@ -36,10 +38,43 @@ function twoNumberSum(array, targetSum) {
             // it is, bingo, we've got our pair. sort it.
             return [targetSum - num, num].sort((a, b) => a - b);
         } else {
-            // the num is new, add it to the hashmap
+            // the num is new, add it to the hashtable
             nums[num] = true;
         }
     }
     // we didn't find anything.
     return [];
+}
+
+// O(nlogn) time | O(1) space
+// sort is O(nlogn), loop is O(n/2) - hence the sort's BigO is taken | values are not stored
+function twoNumberSum(array, targetSum) {
+    // in v8 uses timsort, worst case is O(nlogn)
+    // sort the values
+    array.sort((a, b) => a - b);
+
+    // take leftmost value
+    let leftIndex = 0;
+    // and rightmost value
+    let rightIndex = array.length - 1;
+
+    while (leftIndex < rightIndex) {
+        // sum left and and right
+        const runningSum = array[leftIndex] + array[rightIndex]
+        // if matches the target
+        if (runningSum === targetSum) {
+            // bingo, no need to sort, it's already done
+            return [array[leftIndex], array[rightIndex]]
+          // if the running sum is less
+        } else if (runningSum < targetSum) {
+            // take next item from the left side
+            leftIndex++;
+          // so the running sum is more
+        } else {
+            // take next item from the right, so going this <-- way
+            rightIndex--;
+        }
+    }
+    // oops didn't find anything
+    return []
 }
