@@ -1,6 +1,4 @@
 # O(n^2) time | O(1) space
-
-
 def twoNumSum(arr, targetSum):
     for i in range(len(arr) - 1):
         firstNum = arr[i]
@@ -10,9 +8,8 @@ def twoNumSum(arr, targetSum):
                 return sorted([firstNum, secondNum])
     return []
 
+
 # O(n) time | O(n) space
-
-
 def twoNumSum1(arr, targetSum):
     nums = {}
     for num in arr:
@@ -23,9 +20,8 @@ def twoNumSum1(arr, targetSum):
             nums[num] = True
     return []
 
+
 # O(nlog(n)) time | O(1) space
-
-
 def twoNumSum2(arr, targetSum):
     arr.sort()
     leftNum = 0
